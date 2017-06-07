@@ -1,0 +1,24 @@
+{
+	"name": "salcode/fe-cmb2-slider",
+	"description": "Create slider using CMB2",
+	"license": "Apache-2.0",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Sal Ferrarello",
+			"email": "info@ironcodestudio.com"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0",
+		"johnbillion/extended-cpts": "^3.2"
+	},
+	"autoload"    : {
+		"classmap": [
+			"src/"
+		],
+		"files": [
+			"vendor/johnbillion/extended-cpts/extended-cpts.php"
+		]
+	}
+}
