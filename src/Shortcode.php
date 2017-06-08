@@ -38,48 +38,37 @@ class Shortcode {
 		$slider_id   = intval( $post_id );
 		$slider_data = get_post_meta( $slider_id, 'fe_cmb2_slider_repeat_grp', true );
 
-		$template_location = $this->get_template_location( $slider_id, $template );
+		$template_location = $this->get_template_location( $template );
 
 		ob_start();
 		include( $template_location );
 		return ob_get_clean();
 	}
 
-	protected function get_template_location( $slider_id, $template_suffix = '' ) {
+	protected function get_template_location( $template_suffix = '' ) {
+
+		// Insure $template_suffix is appropriate for use in a filename.
 		$template_suffix = sanitize_file_name( $template_suffix );
 
-		$custom_template_locations = array(
-			// Template in (child) theme with the slider ID.
-			// e.g. `/wp-content/my-theme/fe-cmb2-slider/template-7.php`.
-			get_stylesheet_directory() . '/fe-cmb2-slider/template-%s.php',
-
-			// Check for generic template in (child) theme.
-			// e.g. `/wp-content/my-theme/fe-cmb2-slider/template.php`.
-			get_stylesheet_directory() . '/fe-cmb2-slider/template.php',
-		);
+		$custom_template_locations = array();
 
 		if ( $template_suffix ) {
-			// A template suffix has been passed in.
-			// Add templates using $template_suffix to the beginning of the $custom_template_locations.
-			$custom_template_locations = array_merge(
-				array(
-					// Template in (child) theme with the slider ID and $template_suffix.
-					// e.g. `/wp-content/my-theme/fe-cmb2-slider/template-my_home_slider-7.php`.
-					get_stylesheet_directory() . '/fe-cmb2-slider/template-' . $template_suffix . '-%s.php',
-
-					// Check for generic template in (child) theme.
-					// e.g. `/wp-content/my-theme/fe-cmb2-slider/template-my_home_slider.php`.
-					get_stylesheet_directory() . '/fe-cmb2-slider/template-' . $template_suffix . '.php',
-				),
-				$custom_template_locations
+			// A template suffix has been passed in, we use it for our first custom template location.
+			$custom_template_locations = array(
+				// Check for custom template with suffix in (child) theme.
+				// e.g. `/wp-content/my-theme/fe-cmb2-slider/template-home.php`.
+				sprintf( get_stylesheet_directory() . '/fe-cmb2-slider/template-%s.php', $template_suffix ),
 			);
 		}
 
-		$custom_template_locations_length = count( $custom_template_locations );
+		// Check for generic custom template in (child) theme.
+		$custom_template_locations[] = get_stylesheet_directory() . '/fe-cmb2-slider/template.php';
 
-		for ( $i = 0; $i < $custom_template_locations_length; $i++ ) {
+		$len = count( $custom_template_locations );
 
-			$template_location = sprintf( $custom_template_locations[ $i ], intval( $slider_id ) );
+		for ( $i = 0; $i < $len; $i++ ) {
+
+			$template_location = $custom_template_locations[ $i ];
 
 			if ( file_exists( $template_location ) ) {
 				return $template_location;
