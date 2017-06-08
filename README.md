@@ -8,10 +8,29 @@ The slider can then be displayed with either the shortcode `[fe_slider id=5]` wh
 
 ## Templating
 
-This plugin contains a basic template for displaying items, however override templates can be added to the theme.
+This plugin contains a basic template for displaying items, however override templates can be added to the theme.  The shortcode takes an optional second parameter `template`.  This is the template suffix used for the custom template.
 
-- `/wp-content/my-theme/fe-cmb2-slider/template-7.php` will override display on the slider with post id `7`
-- `/wp-content/my-theme/fe-cmb2-slider/template.php` will override display on any slider (that doesn't have a post id specific template)
+```
+[fe_slider id=5 template=home]
+```
+
+For this shortcode, we'll check for custom templates at:
+
+- `/wp-content/my-theme/fe-cmb2-slider/template-home.php`
+- `/wp-content/my-theme/fe-cmb2-slider/template.php`
+
+If neither of these are found, the default template with the plugin will be used.
+
+If the `template` parameter is omitted
+
+```
+[fe_slider id=5]
+```
+
+We'll check  
+`/wp-content/my-theme/fe-cmb2-slider/template.php`  
+for a custom template.
+
 
 ## Building This Project
 
