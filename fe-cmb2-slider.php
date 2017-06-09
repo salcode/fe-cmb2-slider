@@ -3,7 +3,7 @@
  * Plugin Name: Iron Code CMB2 Slider
  * Plugin URI: http://github.com/salcode/fe-cmb2-slider
  * Description: Create a Custom Post Type called fe_slider where each post is a slider. When the CMB2 plugin is active, each slider will have a repeatable field for adding slides. The slides can then be displayed in your theme.
- * Version: 0.2.0
+ * Version: 0.3.0
  * Author: Sal Ferrarello
  * Author URI: http://salferrarello.com/
  * Minimum PHP: 5.3
